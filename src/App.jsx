@@ -15,7 +15,7 @@ function App() {
     } catch (error) {
       console.error("Error requesting account:", error);
       alert("Please install MetaMask to use this application.");
-      setError("MetaMask is not installed or not connected.");
+      setError(error.message || "MetaMask not found");
     }
   }
 
@@ -23,6 +23,8 @@ function App() {
     try {
       if (!text) {
         alert("Please enter a message before setting.");
+        setError("Please enter a message before setting.");
+        setTimeout(() => setError(""), 2000);
         return;
       }
 
@@ -43,6 +45,7 @@ function App() {
     } catch (error) {
       console.error("Error setting message:", error);
       alert(error.message || error);
+      setError(error.message || "An error occurred while setting the message.");
     }
   };
 
@@ -64,27 +67,31 @@ function App() {
     } catch (error) {
       console.error("Error getting message:", error);
       alert(error.message || error);
+      setError(error.message || "An error occurred while getting the message.");
     }
   };
 
   return (
     <div style={{ padding: "2rem" }}>
-      <h1>Set Message on Smart Contract</h1>
-      <main className="main">
-        <div className="set-message">
-        <input
-          type="text"
-          placeholder="Set message"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-        />
-        <button onClick={handleSet}>Set Message</button>
+      <div className="container">
+        <h1>Set Message on Smart Contract</h1>
+        <main className="main">
+          <div className="set-message">
+            <input
+              type="text"
+              placeholder="Set message"
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+            />
+            <button onClick={handleSet}>Set Message</button>
+          </div>
+          <div className="get-message">
+            <button onClick={getMessage}>Get Message</button>
+            <h2>{message}</h2>
+            {error && <p style={{ color: "red" }}>Error: {error}</p>}
+          </div>
+        </main>
       </div>
-      <div className="get-message">
-        <button onClick={getMessage}>Get Message</button>
-        <h2>{message}</h2>
-      </div>
-      </main>
     </div>
   );
 }

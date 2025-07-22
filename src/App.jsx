@@ -43,9 +43,9 @@ function App() {
         );
       }
     } catch (error) {
-      console.error("Error setting message:", error);
-      alert(error.message || error);
-      setError(error.message || "An error occurred while setting the message.");
+      console.error("Error setting message:", error.info?.error?.message);
+      alert(error.info?.error?.message || error);
+      setError(error.info?.error?.message || "An error occurred while setting the message.");
     }
   };
 
@@ -65,9 +65,9 @@ function App() {
         );
       }
     } catch (error) {
-      console.error("Error getting message:", error);
-      alert(error.message || error);
-      setError(error.message || "An error occurred while getting the message.");
+      console.error("Error getting message:", error.info?.error?.message);
+      alert(error.info?.error?.message || error);
+      setError(error.info?.error?.message || "An error occurred while getting the message.");
     }
   };
 

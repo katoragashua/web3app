@@ -19,12 +19,16 @@ function App() {
     }
   }
 
+  const clearError = () => {
+    setTimeout(() => setError(""), 2000);
+  };
+
   const handleSet = async () => {
     try {
       if (!text) {
         alert("Please enter a message before setting.");
         setError("Please enter a message before setting.");
-        setTimeout(() => setError(""), 2000);
+        clearError();
         return;
       }
 
@@ -45,7 +49,11 @@ function App() {
     } catch (error) {
       console.error("Error setting message:", error.info?.error?.message);
       alert(error.info?.error?.message || error);
-      setError(error.info?.error?.message || "An error occurred while setting the message.");
+      setError(
+        error.info?.error?.message ||
+          "An error occurred while setting the message."
+      );
+      clearError();
     }
   };
 
@@ -67,7 +75,11 @@ function App() {
     } catch (error) {
       console.error("Error getting message:", error.info?.error?.message);
       alert(error.info?.error?.message || error);
-      setError(error.info?.error?.message || "An error occurred while getting the message.");
+      setError(
+        error.info?.error?.message ||
+          "An error occurred while getting the message."
+      );
+      clearError();
     }
   };
 
